@@ -1,1 +1,66 @@
 @import "tailwindcss";
+
+@theme {
+  --color-base: hsl(32deg, 57%, 95%);
+  --color-surface: hsl(35deg, 100%, 98%);
+  --color-overlay: hsl(33deg, 43%, 91%);
+  --color-muted: hsl(257deg, 9%, 61%);
+  --color-subtle: hsl(248deg, 12%, 52%);
+  --color-text: hsl(248deg, 19%, 40%);
+  --color-love: hsl(343deg, 35%, 55%);
+  --color-gold: hsl(35deg, 81%, 56%);
+  --color-rose: hsl(3deg, 53%, 67%);
+  --color-pine: hsl(197deg, 53%, 34%);
+  --color-foam: hsl(189deg, 30%, 48%);
+  --color-iris: hsl(268deg, 21%, 57%);
+  --color-highlight-low: hsl(25deg, 35%, 93%);
+  --color-highlight-med: hsl(10deg, 9%, 86%);
+  --color-highlight-high: hsl(315deg, 4%, 80%);
+}
+
+@layer base {
+  body {
+    @apply bg-[var(--color-rose-pine-base)] text-[var(--color-rose-pine-text)];
+  }
+
+  a {
+    @apply text-[var(--color-rose-pine-iris)] no-underline;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-[var(--color-rose-pine-subtle)] font-semibold;
+  }
+
+  hr {
+    border-color: var(--color-rose-pine-overlay);
+  }
+
+  code {
+    @apply bg-[var(--color-rose-pine-highlight-low)] text-[var(--color-rose-pine-text)] rounded px-1.5 py-0.5;
+  }
+
+  pre {
+    @apply bg-[var(--color-rose-pine-highlight-med)] text-[var(--color-rose-pine-text)] rounded p-4 overflow-x-auto;
+  }
+
+  blockquote {
+    @apply border-l-4 border-[var(--color-rose-pine-overlay)] pl-4 italic text-[var(--color-rose-pine-subtle)];
+  }
+
+  table {
+    @apply w-full border-collapse;
+  }
+
+  th {
+    @apply border-b border-[var(--color-rose-pine-overlay)] text-left py-2 px-4;
+  }
+
+  td {
+    @apply border-b border-[var(--color-rose-pine-overlay)] py-2 px-4;
+  }
+}

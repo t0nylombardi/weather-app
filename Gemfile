@@ -1,11 +1,15 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 8.0.2", ">= 8.0.2.1"
+gem "httparty"
 gem "propshaft"
 gem "puma", ">= 5.0"
-gem "tzinfo-data", platforms: %i[windows jruby]
+gem "rails", "~> 8.0.2", ">= 8.0.2.1"
+gem "stimulus-rails"
 gem "tailwindcss-rails"
 gem "tailwindcss-ruby"
+gem "turbo-rails"
+gem "tzinfo-data", platforms: %i[windows jruby]
+gem "view_component"
 
 group :development do
   gem "annotaterb"
