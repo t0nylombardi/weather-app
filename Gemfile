@@ -4,6 +4,8 @@ gem "rails", "~> 8.0.2", ">= 8.0.2.1"
 gem "propshaft"
 gem "puma", ">= 5.0"
 gem "tzinfo-data", platforms: %i[windows jruby]
+gem "tailwindcss-rails"
+gem "tailwindcss-ruby"
 
 group :development do
   gem "annotaterb"
