@@ -20,11 +20,11 @@
 
 @layer base {
   body {
-    @apply bg-[var(--color-rose-pine-base)] text-[var(--color-rose-pine-text)];
+    @apply bg-[var(--color-base)] text-[var(--color-text)];
   }
 
   a {
-    @apply text-[var(--color-rose-pine-iris)] no-underline;
+    @apply text-[var(--color-iris)] no-underline;
   }
 
   h1,
@@ -33,23 +33,23 @@
   h4,
   h5,
   h6 {
-    @apply text-[var(--color-rose-pine-subtle)] font-semibold;
+    @apply text-[var(--color-subtle)] font-semibold;
   }
 
   hr {
-    border-color: var(--color-rose-pine-overlay);
+    border-color: var(--color-overlay);
   }
 
   code {
-    @apply bg-[var(--color-rose-pine-highlight-low)] text-[var(--color-rose-pine-text)] rounded px-1.5 py-0.5;
+    @apply bg-[var(--color-highlight-low)] text-[var(--color-text)] rounded px-1.5 py-0.5;
   }
 
   pre {
-    @apply bg-[var(--color-rose-pine-highlight-med)] text-[var(--color-rose-pine-text)] rounded p-4 overflow-x-auto;
+    @apply bg-[var(--color-highlight-med)] text-[var(--color-text)] rounded p-4 overflow-x-auto;
   }
 
   blockquote {
-    @apply border-l-4 border-[var(--color-rose-pine-overlay)] pl-4 italic text-[var(--color-rose-pine-subtle)];
+    @apply border-l-4 border-[var(--color-overlay)] pl-4 italic text-[var(--color-subtle)];
   }
 
   table {
@@ -57,10 +57,10 @@
   }
 
   th {
-    @apply border-b border-[var(--color-rose-pine-overlay)] text-left py-2 px-4;
+    @apply border-b border-[var(--color-overlay)] text-left py-2 px-4;
   }
 
   td {
-    @apply border-b border-[var(--color-rose-pine-overlay)] py-2 px-4;
+    @apply border-b border-[var(--color-overlay)] py-2 px-4;
   }
 }

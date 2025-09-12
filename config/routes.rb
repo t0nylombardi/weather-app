@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get "up" => "rails/health#show", :as => :rails_health_check
+  post "/weather" => "forecast#update_forecast", :as => :update_forecast
 
   root "forecast#index"
 end
