@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  post "/weather" => "forecast#update_forecast", :as => :update_forecast
-
+  resources :forecast, only: [:index] do
+    post :update_forecast, on: :collection
+  end
   root "forecast#index"
 end
