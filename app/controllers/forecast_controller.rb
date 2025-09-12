@@ -12,7 +12,10 @@ class ForecastController < ApplicationController
     forecast = fetch_weather_data(location)
     handle_failed_fetch(forecast) unless forecast["error"].nil?
 
-    render_component(forecast)
+    respond_to do |format|
+      format.turbo_stream { render_component(forecast) }
+      format.html { redirect_to root_path }
+    end
   end
 
   private
