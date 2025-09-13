@@ -5,17 +5,17 @@ import AddressParser from "../services/address_parser";
 export default class extends Controller {
   static targets = ["input", "postal_code"];
 
-  connect() {
-    console.log("AddressController connected");
+  async connect() {
     const apiKey = document.querySelector(
       "meta[name='google-maps-api-key']"
     ).content;
     this.loader = new GoogleMapsLoader(apiKey);
     this.autocomplete = null;
+
+    await this.initGoogleMaps();
   }
 
   async initGoogleMaps() {
-    console.log("Initializing Google");
     await this.loader.load();
 
     if (!this.autocomplete) {
@@ -24,7 +24,7 @@ export default class extends Controller {
         {
           componentRestrictions: { country: ["us", "ca"] },
           types: ["address"],
-          fields: ["address_components"],
+          fields: ["address_components", "geometry", "formatted_address"],
         }
       );
 
@@ -35,11 +35,12 @@ export default class extends Controller {
   }
 
   placeSelected() {
-    console.log("Place selected");
     const place = this.autocomplete.getPlace();
     this.postal_codeTarget.value = AddressParser.getComponent(
       place,
       "postal_code"
     );
+
+    // this.inputTarget.value = "";
   }
 }

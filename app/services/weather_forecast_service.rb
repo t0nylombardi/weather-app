@@ -16,7 +16,7 @@ class WeatherForecastService
   # @param postal_code [String, nil] The postal code of the location (optional, used for caching purposes).
   def initialize(location:, postal_code: nil)
     @location = location
-    @postal_code = postal_code ? "10590" : postal_code.strip
+    @postal_code = postal_code
   end
 
   # Retrieves the weather forecast for the specified location.
@@ -27,14 +27,18 @@ class WeatherForecastService
   #   Otherwise, fetches data from the API and caches it.
   def forecast
     return unless @location
+    puts "\n\nFetching forecast for #{location}\n\n"
 
     cached_data = Rails.cache.read(cache_key)
+    puts "\n\nUsing cached forecast for #{location}\n\n" if cached_data
     return cached_data if cached_data
 
     fetch_data_from_api
   end
 
   private
+
+  attr_reader :location, :postal_code
 
   # Fetches forecast data from the WeatherAPI.
   #
@@ -52,8 +56,8 @@ class WeatherForecastService
   def params
     {
       key: API_KEY,
-      q: @location,
-      days: 14,
+      q: location,
+      days: 3,
       aqi: "no",
       alerts: "no"
     }
@@ -88,8 +92,8 @@ class WeatherForecastService
   # @return [Hash] Forecast data.
   def parse_response(response_body)
     data = JSON.parse(response_body)
-    # binding.pry
-    cache_forecast(data) unless @postal_code.nil?
+
+    cache_forecast(data) unless postal_code.nil?
     data
   end
 
@@ -98,15 +102,21 @@ class WeatherForecastService
   # @param data [Hash] Forecast data to be cached.
   def cache_forecast(data)
     Rails.cache.write(cache_key,
-      data.merge(cached: true),
+      data.merge({cached: {
+        at: Time.current,
+        location: location,
+        postal_code: postal_code
+      }}),
       expires_at: 30.minutes.from_now)
+
+    puts "\n\nCached forecast for #{location}\n\n"
   end
 
   # Generates a cache key based on the postal code.
   #
   # @return [String] Cache key string.
   def cache_key
-    "weather_forecast_#{@postal_code}"
+    "weather_forecast_#{postal_code}"
   end
 
   # Handles errors by returning the response body.

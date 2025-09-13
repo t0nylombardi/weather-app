@@ -1,5 +1,4 @@
-
-  <%= turbo_frame_tag "forecast" do %>
+<%= turbo_frame_tag "forecast" do %>
   <% if forecast&.fetch("forecast", nil) %>
     <div class="flex flex-row justify-around items-center p-10 rounded-md">
       <% forecast['forecast']['forecastday'].each do |day| %>
@@ -14,8 +13,6 @@
         ) %>
       <% end %>
     </div>
-    <div class="mx-auto">
-      <%= display_cached_text(forecast || {}) %>
-    </div>
+    <%= display_cached_text(forecast: forecast) %>
   <% end %>
 <% end %>
