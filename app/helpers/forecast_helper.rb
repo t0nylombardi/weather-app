@@ -6,7 +6,13 @@ module ForecastHelper
   def display_cached_text(forecast)
     return if forecast.instance_of?(String)
 
-    '<p class="text-sm">Cached</p>'.html_safe if forecast[:cached]
+    content_tag :div, class: "absolute top-4 left-4" do
+      cached_text(forecast)
+    end
+  end
+
+  def cached_text(forecast)
+    '<p class="text-lg">Cached</p>'.html_safe if forecast&.dig(:cached)
   end
 
   def display_flash_alerts

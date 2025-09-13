@@ -12,15 +12,8 @@ class ForecastController < ApplicationController
     forecast = fetch_weather_data(location)
     handle_failed_fetch(forecast) unless forecast["error"].nil?
 
-    puts "\n\nForecast data: #{forecast.inspect}\n\n"
     respond_to do |format|
-      # format.html { render_component(forecast) }
-      format.turbo_stream do
-        render turbo_stream:
-          turbo_stream.update("forecast",
-            partial: "weather_dashboard",
-            locals: {forecast:})
-      end
+      format.turbo_stream { render_component(forecast) }
     end
   end
 
@@ -30,10 +23,9 @@ class ForecastController < ApplicationController
   #
   # @param forecast [Hash] The weather forecast data to be rendered.
   def render_component(forecast)
-    puts "\n\nRendering component with forecast: #{forecast.inspect}\n\n"
     render turbo_stream:
       turbo_stream.update("forecast",
-        partial: "weather_dashboard",
+        partial: "forecast",
         locals: {forecast:})
   end
 

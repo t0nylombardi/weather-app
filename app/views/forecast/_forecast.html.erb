@@ -1,0 +1,21 @@
+
+  <%= turbo_frame_tag "forecast" do %>
+  <% if forecast&.fetch("forecast", nil) %>
+    <div class="flex flex-row justify-around items-center p-10 rounded-md">
+      <% forecast['forecast']['forecastday'].each do |day| %>
+        <%= render Forecast::CardComponent.new(
+          date: day['date'],
+          current: forecast['current']['temp_f'].to_i,
+          high: day['day']['maxtemp_f'].to_i,
+          low: day['day']['mintemp_f'].to_i,
+          description: day['day']['condition']['text'],
+          image: day['day']['condition']['icon'],
+          show_current: Date.parse(day['date']) == Date.today
+        ) %>
+      <% end %>
+    </div>
+    <div class="mx-auto">
+      <%= display_cached_text(forecast || {}) %>
+    </div>
+  <% end %>
+<% end %>

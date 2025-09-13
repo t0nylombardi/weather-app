@@ -1,46 +1,45 @@
 import { Controller } from "@hotwired/stimulus";
+import GoogleMapsLoader from "../services/google_maps_loader";
+import AddressParser from "../services/address_parser";
 
-// Connects to data-controller='address'
 export default class extends Controller {
   static targets = ["input", "postal_code"];
 
   connect() {
-    console.log("Address controller connected");
-    if (typeof google !== "undefined" && google.maps && google.maps.places) {
-      this.initGoogleMaps();
-    } else {
-      console.error("Google Maps JavaScript API is not loaded.");
-    }
+    console.log("AddressController connected");
+    const apiKey = document.querySelector(
+      "meta[name='google-maps-api-key']"
+    ).content;
+    this.loader = new GoogleMapsLoader(apiKey);
+    this.autocomplete = null;
   }
 
-  initGoogleMaps() {
-    this.autocomplete = new google.maps.places.Autocomplete(this.inputTarget, {
-      componentRestrictions: { country: ["us", "ca"] },
+  async initGoogleMaps() {
+    console.log("Initializing Google");
+    await this.loader.load();
 
-      types: ["address"],
-    });
+    if (!this.autocomplete) {
+      this.autocomplete = new google.maps.places.Autocomplete(
+        this.inputTarget,
+        {
+          componentRestrictions: { country: ["us", "ca"] },
+          types: ["address"],
+          fields: ["address_components"],
+        }
+      );
 
-    this.autocomplete.addListener(
-      "place_changed",
-      this.placeSelected.bind(this)
-    );
+      this.autocomplete.addListener("place_changed", () =>
+        this.placeSelected()
+      );
+    }
   }
 
   placeSelected() {
+    console.log("Place selected");
     const place = this.autocomplete.getPlace();
-    this.postal_codeTarget.value = this.getAddressComponent(
+    this.postal_codeTarget.value = AddressParser.getComponent(
       place,
       "postal_code"
     );
-  }
-
-  getAddressComponent(place, component) {
-    for (let i = 0; i < place.address_components.length; i++) {
-      const addressType = place.address_components[i].types[0];
-      if (addressType === component) {
-        return place.address_components[i].long_name;
-      }
-    }
-    return "";
   }
 }

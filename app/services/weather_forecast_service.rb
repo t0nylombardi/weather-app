@@ -16,7 +16,7 @@ class WeatherForecastService
   # @param postal_code [String, nil] The postal code of the location (optional, used for caching purposes).
   def initialize(location:, postal_code: nil)
     @location = location
-    @postal_code = postal_code
+    @postal_code = postal_code ? "10590" : postal_code.strip
   end
 
   # Retrieves the weather forecast for the specified location.
@@ -53,10 +53,9 @@ class WeatherForecastService
     {
       key: API_KEY,
       q: @location,
-      days: 5,
+      days: 14,
       aqi: "no",
-      alerts: "no",
-      hour: 24
+      alerts: "no"
     }
   end
 
@@ -89,8 +88,7 @@ class WeatherForecastService
   # @return [Hash] Forecast data.
   def parse_response(response_body)
     data = JSON.parse(response_body)
-    Rails.logger.info("WeatherAPI response: #{data}")
-
+    # binding.pry
     cache_forecast(data) unless @postal_code.nil?
     data
   end

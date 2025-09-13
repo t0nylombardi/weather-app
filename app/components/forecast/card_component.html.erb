@@ -1,17 +1,21 @@
 <div class="w-full">
-  <div class="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:bg-gray-900 dark:text-gray-100">
+  <div class="flex flex-col justify-between items-center p-2 mx-auto rounded-md w-[16rem] text-base bg-gradient-to-b from-foam to-pine">
     <div class="text-center">
-      <h2 class="text-md font-semibold"><%= @date.strftime("%B %e")%></h2>
+      <h2 class="text-md font-semibold text-gold"><%= @date.strftime("%B %e") %></h2>
     </div>
-    <div class="mt-4 text-3xl font-semibold">
-      <%= @current %>°
+
+    <div class="mt-4 h-20 text-3xl font-semibold">
+      <%= @show_current ? "Current: #{@current}°" : "&nbsp;".html_safe %>
     </div>
+
     <img src="<%= @image %>" alt="<%= @description %>" class="w-18 h-18 mx-auto" />
+
     <div class="mb-2 text-3xl font-semibold">
       <%= @high %>°
       <span class="mx-1 font-normal">/</span>
       <%= @low %>°
     </div>
-    <p class="dark:text-gray-400"><%= @description%></p>
+
+    <p class="text-gold"><%= @description %></p>
   </div>
 </div>

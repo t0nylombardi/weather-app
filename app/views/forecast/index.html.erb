@@ -1,3 +1,15 @@
+<div class="mt-4 text-love">
+  <%= display_flash_alerts %>
+</div>
+
 <section class="w-full bg-base text-text">
-  <%= render "weather_dashboard", forecast: {} %>
+  <div class="relative isolate overflow-hidden">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-10">
+      <%= render partial: "forecast/location_form" %>
+    </div>
+  </div>
+
+  <div class="mx-auto my-10 w-full max-w-7xl px-6 lg:px-8">
+      <%= render partial: "forecast/forecast", locals: { forecast: {} } %>
+  </div>
 </section>
