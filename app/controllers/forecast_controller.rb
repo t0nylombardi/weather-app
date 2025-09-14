@@ -16,6 +16,7 @@ class ForecastController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream { render_component(forecast) }
+      # format.html { redirect_to root_path }
     end
   end
 
@@ -28,14 +29,14 @@ class ForecastController < ApplicationController
     params.except(:authenticity_token).permit(:location, :postal_code)
   end
 
-  # Fetches weather forecast data using the WeatherForecastService.
+  # Fetches weather forecast data using the Weather::ForecastService.
   #
   # @return [Hash] Weather forecast data, including error details if the fetch fails
   def fetch_weather_data
-    WeatherForecastService.new(
+    Weather::ForecastService.call(
       location: forecast_params[:location],
       postal_code: forecast_params[:postal_code]
-    ).forecast
+    )
   end
 
   # Renders the weather dashboard and form Turbo Stream components.
