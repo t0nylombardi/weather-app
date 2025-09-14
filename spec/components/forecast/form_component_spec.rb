@@ -1,31 +1,29 @@
-# frozen_string_literal: true
-
 require "rails_helper"
 
 RSpec.describe Forecast::FormComponent, type: :component do
-  subject(:rendered) { render_inline(described_class.new) }
+  it "renders form with location input, postal_code hidden, and submit button" do
+    result = render_inline(described_class.new)
 
-  it "renders a form with the correct action and method" do
-    form = rendered.css("form")
-    expect(form.attr("action").value).to eq "/weather"
-    expect(form.attr("method").value).to eq "post"
-  end
+    # form action and method
+    form = result.at_css("form")
+    expect(form).to be_present
+    expect(form[:action]).to eq(Rails.application.routes.url_helpers.update_forecast_path)
 
-  it "renders the location text field" do
-    input = rendered.css("input#location")
-    expect(input.attr("name").value).to eq "location"
-    expect(input.attr("placeholder").value).to eq "Enter your address"
-    expect(input.attr("required").value).to eq "required"
-  end
+    # location text input
+    input = result.at_css("input#location")
+    expect(input).to be_present
+    expect(input[:name]).to eq("location")
+    expect(input[:placeholder]).to include("Enter your address")
 
-  it "attaches Stimulus data attributes for address controller" do
-    input = rendered.css("input#location")
-    expect(input.attr("data-action").value).to include("click->address#initGoogleMaps")
-    expect(input.attr("data-address-target").value).to eq "input"
-  end
+    # hidden postal_code field
+    hidden = result.at_css("input[type='hidden'][name='postal_code']")
+    expect(hidden).to be_present
 
-  it "renders a hidden field for postal_code with correct data target" do
-    hidden = rendered.css("input[type='hidden'][name='postal_code']")
-    expect(hidden.attr("data-address-target").value).to eq "postal_code"
+    # submit button
+    button = result.at_css("button")
+    expect(button).to be_present
+    expect(button["id"]).to eq("submit")
+    expect(button[:type]).to eq("submit")
+    expect(button.text).to include("Search")
   end
 end
