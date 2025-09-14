@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Forecast
   # A component that displays a weather forecast card.
   #

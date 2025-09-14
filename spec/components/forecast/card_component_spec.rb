@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe Forecast::CardComponent, type: :component do
@@ -41,4 +43,3 @@ RSpec.describe Forecast::CardComponent, type: :component do
     expect(result.text).not_to include("Current:")
   end
 end
-

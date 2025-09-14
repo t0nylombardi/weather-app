@@ -26,7 +26,7 @@ RSpec.describe ForecastController, type: :controller do
     context "when forecast data is successfully retrieved" do
       let(:successful_forecast) do
         {
-          "current" => { "temp_f" => 72 },
+          "current" => {"temp_f" => 72},
           "forecast" => {
             "forecastday" => [
               {
@@ -34,7 +34,7 @@ RSpec.describe ForecastController, type: :controller do
                 "day" => {
                   "maxtemp_f" => 75,
                   "mintemp_f" => 65,
-                  "condition" => { "text" => "Sunny", "icon" => "/icons/sun.png" }
+                  "condition" => {"text" => "Sunny", "icon" => "/icons/sun.png"}
                 }
               }
             ]
@@ -207,10 +207,10 @@ RSpec.describe ForecastController, type: :controller do
   describe "integration behavior" do
     it "handles the complete successful forecast flow" do
       successful_forecast = {
-        "current" => { "temp_f" => 65 },
+        "current" => {"temp_f" => 65},
         "forecast" => {
           "forecastday" => [
-            { "date" => Date.today.strftime("%Y-%m-%d"), "day" => { "maxtemp_f" => 68, "mintemp_f" => 60, "condition" => { "text" => "Foggy", "icon" => "/icons/fog.png" } } }
+            {"date" => Date.today.strftime("%Y-%m-%d"), "day" => {"maxtemp_f" => 68, "mintemp_f" => 60, "condition" => {"text" => "Foggy", "icon" => "/icons/fog.png"}}}
           ]
         }
       }

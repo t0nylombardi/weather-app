@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe Weather::CacheRepository do
@@ -13,7 +15,7 @@ RSpec.describe Weather::CacheRepository do
     context "when cached data is a Hash" do
       it "returns the hash as-is" do
         repo = described_class.new(location: "New York")
-        data = { "temp" => 70 }
+        data = {"temp" => 70}
         expect(Rails.cache).to receive(:read).with("weather_forecast_new-york").and_return(data)
         expect(repo.read).to eq(data)
       end
@@ -22,7 +24,7 @@ RSpec.describe Weather::CacheRepository do
     context "when cached data is a JSON String" do
       it "parses and returns the hash" do
         repo = described_class.new(location: "New York")
-        data = { "temp" => 70 }
+        data = {"temp" => 70}
         expect(Rails.cache).to receive(:read).with("weather_forecast_new-york").and_return(data.to_json)
         expect(repo.read).to eq(data)
       end
@@ -38,7 +40,7 @@ RSpec.describe Weather::CacheRepository do
 
     it "writes with metadata and expiration when using location key" do
       repo = described_class.new(location: "San Francisco, CA")
-      payload = { "temp" => 65 }
+      payload = {"temp" => 65}
 
       expected_key = "weather_forecast_san-francisco-ca"
       expected_data = payload.merge({
@@ -55,7 +57,7 @@ RSpec.describe Weather::CacheRepository do
 
     it "writes using postal_code key when provided" do
       repo = described_class.new(postal_code: "10001", location: "New York")
-      payload = { "temp" => 70 }
+      payload = {"temp" => 70}
 
       expected_key = "weather_forecast_10001"
       expected_data = payload.merge({
@@ -71,4 +73,3 @@ RSpec.describe Weather::CacheRepository do
     end
   end
 end
-

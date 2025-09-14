@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Forecast Requests", type: :request do
-  let(:valid_params) { { location: "New York", postal_code: "10001" } }
+  let(:valid_params) { {location: "New York", postal_code: "10001"} }
   let(:valid_headers) { {"Accept" => "text/vnd.turbo-stream.html"} }
 
   describe "GET /" do
@@ -40,7 +40,7 @@ RSpec.describe "Forecast Requests", type: :request do
     context "with successful forecast data" do
       let(:successful_forecast) do
         {
-          "current" => { "temp_f" => 72 },
+          "current" => {"temp_f" => 72},
           "forecast" => {
             "forecastday" => [
               {
@@ -48,7 +48,7 @@ RSpec.describe "Forecast Requests", type: :request do
                 "day" => {
                   "maxtemp_f" => 75,
                   "mintemp_f" => 65,
-                  "condition" => { "text" => "Sunny", "icon" => "/icons/sun.png" }
+                  "condition" => {"text" => "Sunny", "icon" => "/icons/sun.png"}
                 }
               },
               {
@@ -56,7 +56,7 @@ RSpec.describe "Forecast Requests", type: :request do
                 "day" => {
                   "maxtemp_f" => 78,
                   "mintemp_f" => 68,
-                  "condition" => { "text" => "Partly cloudy", "icon" => "/icons/cloud.png" }
+                  "condition" => {"text" => "Partly cloudy", "icon" => "/icons/cloud.png"}
                 }
               }
             ]

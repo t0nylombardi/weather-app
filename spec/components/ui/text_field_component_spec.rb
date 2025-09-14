@@ -16,7 +16,7 @@ RSpec.describe Ui::TextFieldComponent, type: :component do
         id: "location",
         placeholder: "Enter",
         required: true,
-        data: { foo: "bar" },
+        data: {foo: "bar"},
         classes: "extra-class"
       )
     )

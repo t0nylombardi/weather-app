@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe ForecastHelper, type: :helper do
@@ -8,14 +10,14 @@ RSpec.describe ForecastHelper, type: :helper do
     end
 
     it "returns nil when no cached metadata present" do
-      result = helper.display_cached_text(forecast: { "location" => {} })
+      result = helper.display_cached_text(forecast: {"location" => {}})
       expect(result).to be_nil
     end
 
     it "renders cached metadata when present" do
       forecast = {
-        "location" => { "name" => "New York", "region" => "NY", "country" => "USA" },
-        cached: { at: "2024-01-02 15:30:00 -0500", location: "New York", postal_code: "10001" }
+        "location" => {"name" => "New York", "region" => "NY", "country" => "USA"},
+        :cached => {at: "2024-01-02 15:30:00 -0500", location: "New York", postal_code: "10001"}
       }
 
       html = helper.display_cached_text(forecast: forecast)
@@ -33,12 +35,12 @@ RSpec.describe ForecastHelper, type: :helper do
 
   describe "#format_address" do
     it "joins name, region, and country" do
-      address = helper.send(:format_address, { "name" => "Boston", "region" => "MA", "country" => "USA" })
+      address = helper.send(:format_address, {"name" => "Boston", "region" => "MA", "country" => "USA"})
       expect(address).to eq("Boston, MA, USA")
     end
 
     it "skips missing parts" do
-      address = helper.send(:format_address, { "name" => "Paris", "country" => "France" })
+      address = helper.send(:format_address, {"name" => "Paris", "country" => "France"})
       expect(address).to eq("Paris, France")
     end
   end
