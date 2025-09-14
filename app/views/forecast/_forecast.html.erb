@@ -13,6 +13,6 @@
         ) %>
       <% end %>
     </div>
-    <%= display_cached_text(forecast: forecast) %>
+    <%= render partial: "forecast/cached_data", locals: { forecast: forecast } %>
   <% end %>
 <% end %>

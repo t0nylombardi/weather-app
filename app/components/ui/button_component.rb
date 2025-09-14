@@ -27,11 +27,13 @@ module Ui
     def variant_classes
       case variant
       when :primary
-        "bg-love hover:bg-rose text-base"
+        "bg-lighter-rose hover:bg-rose text-text border border-text !rounded-full"
       when :secondary
         "bg-foam hover:bg-pine text-base"
       when :danger
         "bg-rose hover:bg-love text-base"
+      when :search
+        "bg-foam hover:bg-pine text-base"
       else
         "bg-surface hover:bg-overlay text-text"
       end

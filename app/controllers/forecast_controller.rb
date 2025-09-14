@@ -43,7 +43,7 @@ class ForecastController < ApplicationController
   # @param forecast [Hash] The weather forecast data to render
   def render_component(forecast)
     render turbo_stream: [
-      turbo_stream.update(
+      turbo_stream.replace(
         "forecast",
         partial: "forecast",
         locals: {forecast: forecast}

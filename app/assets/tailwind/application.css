@@ -7,9 +7,12 @@
   --color-muted: hsl(257deg, 9%, 61%);
   --color-subtle: hsl(248deg, 12%, 52%);
   --color-text: hsl(248deg, 19%, 40%);
+  --color-lighttext: hsl(245deg, 50%, 91%)
   --color-love: hsl(343deg, 35%, 55%);
   --color-gold: hsl(35deg, 81%, 56%);
   --color-rose: hsl(3deg, 53%, 67%);
+  --color-light-rose: hsl(353deg, 61%, 82%);
+  --color-lighter-rose: hsl(347deg, 48%, 79%);
   --color-pine: hsl(197deg, 53%, 34%);
   --color-foam: hsl(189deg, 30%, 48%);
   --color-iris: hsl(268deg, 21%, 57%);

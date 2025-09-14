@@ -13,6 +13,7 @@
         name: :location,
         id: :location,
         placeholder: "Enter your address",
+        classes: "block w-full ps-10 p-4 border border-text !rounded-full bg-surface:none !bg-lighter-rose placeholder:text-text/80 focus:outline-none",
         required: true,
         data: { action: "click->address#initGoogleMaps", address_target: "input" }
       ) %>

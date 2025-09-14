@@ -29,10 +29,9 @@ module ForecastHelper
     content_tag(:p, class: "flex flex-col gap-1 text-md text-love") do
       safe_join(
         [
-          content_tag(:span, "Cached at: #{format_timestamp(cached["at"])}"),
+          content_tag(:span, "Cached at: #{format_timestamp(cached[:at])}"),
           content_tag(:span, "Address: #{format_address(location)}"),
-          content_tag(:span, "Postcode: #{cached["postal_code"]}"),
-          content_tag(:span, "Timezone: #{location["tz_id"]}")
+          content_tag(:span, "Postal Code: #{cached[:postal_code]}")
         ].compact
       )
     end

@@ -27,7 +27,6 @@ class WeatherForecastService
   #   Otherwise, fetches data from the API and caches it.
   def forecast
     return unless @location
-    puts "\n\nFetching forecast for #{location}\n\n"
 
     cached_data = Rails.cache.read(cache_key)
     puts "\n\nUsing cached forecast for #{location}\n\n" if cached_data
@@ -103,13 +102,11 @@ class WeatherForecastService
   def cache_forecast(data)
     Rails.cache.write(cache_key,
       data.merge({cached: {
-        at: Time.current,
+        at: current_time,
         location: location,
         postal_code: postal_code
       }}),
       expires_at: 30.minutes.from_now)
-
-    puts "\n\nCached forecast for #{location}\n\n"
   end
 
   # Generates a cache key based on the postal code.
@@ -125,5 +122,12 @@ class WeatherForecastService
   # @return [Json] Response body as a json object.
   def handle_error(response)
     JSON.parse(response.body)
+  end
+
+  def current_time
+    Time
+      .current
+      .in_time_zone("Eastern Time (US & Canada)")
+      .strftime("%b %d, %Y %I:%M %p")
   end
 end
