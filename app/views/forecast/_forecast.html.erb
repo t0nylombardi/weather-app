@@ -9,7 +9,7 @@
           low: day['day']['mintemp_f'].to_i,
           description: day['day']['condition']['text'],
           image: day['day']['condition']['icon'],
-          show_current: Date.parse(day['date']) == Date.today
+          timezone: forecast['location']['tz_id']
         ) %>
       <% end %>
     </div>

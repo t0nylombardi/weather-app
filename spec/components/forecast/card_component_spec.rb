@@ -3,43 +3,64 @@
 require "rails_helper"
 
 RSpec.describe Forecast::CardComponent, type: :component do
-  it "renders forecast details with current when show_current" do
-    date = Date.today
-    result = render_inline(
+  let(:timezone) { "UTC" }
+
+  context "when date is today in timezone" do
+    subject(:component) do
       described_class.new(
-        date: date,
+        date: Time.find_zone(timezone).today,
         current: 70,
         high: 75,
         low: 60,
         description: "Sunny",
         image: "/icons/sun.png",
-        show_current: true
+        timezone: timezone
       )
-    )
+    end
 
-    expect(result.text).to include(date.strftime("%B"))
-    expect(result.text).to include("Current: 70°")
-    expect(result.text).to include("75°")
-    expect(result.text).to include("60°")
-    expect(result.text).to include("Sunny")
-    img = result.at_css("img")
-    expect(img[:src]).to eq("/icons/sun.png")
-    expect(img[:alt]).to eq("Sunny")
+    let(:result) { render_inline(component) }
+
+    it "renders the month name" do
+      expect(result.text).to include(component.send(:date).strftime("%B"))
+    end
+
+    it "renders current temperature" do
+      expect(result.text).to include("Current: 70°")
+    end
+
+    it "renders high and low temperatures" do
+      expect(result.text).to include("75°")
+      expect(result.text).to include("60°")
+    end
+
+    it "renders description" do
+      expect(result.text).to include("Sunny")
+    end
+
+    it "renders image with correct src and alt" do
+      img = result.at_css("img")
+      expect(img[:src]).to eq("/icons/sun.png")
+      expect(img[:alt]).to eq("Sunny")
+    end
   end
 
-  it "omits current when show_current is false" do
-    result = render_inline(
+  context "when date is not today in timezone" do
+    subject(:component) do
       described_class.new(
-        date: Date.today,
+        date: Time.find_zone(timezone).tomorrow,
         current: 70,
         high: 75,
         low: 60,
         description: "Cloudy",
         image: "/icons/cloud.png",
-        show_current: false
+        timezone: timezone
       )
-    )
+    end
 
-    expect(result.text).not_to include("Current:")
+    let(:result) { render_inline(component) }
+
+    it "omits current temperature" do
+      expect(result.text).not_to include("Current:")
+    end
   end
 end

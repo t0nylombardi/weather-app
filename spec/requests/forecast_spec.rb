@@ -40,23 +40,24 @@ RSpec.describe "Forecast Requests", type: :request do
     context "with successful forecast data" do
       let(:successful_forecast) do
         {
-          "current" => {"temp_f" => 72},
-          "forecast" => {
-            "forecastday" => [
+          location: {tz_id: "America/New_York"},
+          current: {temp_f: 72},
+          forecast: {
+            forecastday: [
               {
-                "date" => Date.today.strftime("%Y-%m-%d"),
-                "day" => {
-                  "maxtemp_f" => 75,
-                  "mintemp_f" => 65,
-                  "condition" => {"text" => "Sunny", "icon" => "/icons/sun.png"}
+                date: Date.today.strftime("%Y-%m-%d"),
+                day: {
+                  maxtemp_f: 75,
+                  mintemp_f: 65,
+                  condition: {text: "Sunny", icon: "/icons/sun.png"}
                 }
               },
               {
-                "date" => (Date.today + 1).strftime("%Y-%m-%d"),
-                "day" => {
-                  "maxtemp_f" => 78,
-                  "mintemp_f" => 68,
-                  "condition" => {"text" => "Partly cloudy", "icon" => "/icons/cloud.png"}
+                date: (Date.today + 1).strftime("%Y-%m-%d"),
+                day: {
+                  maxtemp_f: 78,
+                  mintemp_f: 68,
+                  condition: {text: "Partly cloudy", icon: "/icons/cloud.png"}
                 }
               }
             ]
